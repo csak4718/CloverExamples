@@ -1,6 +1,5 @@
 package com.clover.test.activity;
 
-//import android.app.Activity;
 import android.accounts.Account;
 import android.database.Cursor;
 import android.os.AsyncTask;
@@ -13,12 +12,15 @@ import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
 import com.clover.sdk.v1.ServiceException;
+import com.clover.sdk.v3.order.LineItem;
 import com.clover.sdk.v3.order.Order;
 import com.clover.sdk.v3.order.OrderConnector;
 import com.clover.sdk.v3.order.OrderContract;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+
 import android.support.v7.app.AppCompatActivity;
 import com.clover.sdk.v3.inventory.InventoryConnector;
 
@@ -35,6 +37,7 @@ public class CreateOrderActivity extends AppCompatActivity {
 
     @Bind(R.id.order_id) TextView orderId;
     @Bind(R.id.line_item_count) TextView lineItemCount;
+    @Bind(R.id.line_items) TextView txvLineItems;
     @Bind(R.id.total) TextView total;
     @Bind(R.id.create_time) TextView createTime;
 
@@ -43,16 +46,6 @@ public class CreateOrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_order);
         ButterKnife.bind(this);
-
-//        mAccount = CloverAccount.getAccount(this);
-//
-//        if (mAccount != null) {
-//            orderConnector = new OrderConnector(this, mAccount, null);
-//            orderConnector.connect();
-//            inventoryConnector = new InventoryConnector(this, mAccount, null);
-//            inventoryConnector.connect();
-//        }
-
     }
 
     @Override
@@ -145,16 +138,23 @@ public class CreateOrderActivity extends AppCompatActivity {
         @Override
         protected final void onPostExecute(Order order) {
             // Populate the UI
-            orderId.setText(order.getId());
+            orderId.setText("order id = " + order.getId());
 
             int lineItemSize = 0;
-
+            List<LineItem> lineItems;
             if (order.getLineItems() != null) {
                 lineItemSize = order.getLineItems().size();
+                lineItems = order.getLineItems();
+                StringBuilder sb = new StringBuilder("line items = ");
+                for (LineItem lineItem: lineItems) {
+                    sb.append(lineItem.getName()).append(", ");
+                }
+                txvLineItems.setText(sb.toString());
             }
-            lineItemCount.setText(Integer.toString(lineItemSize));
-            total.setText(BigDecimal.valueOf(order.getTotal()).divide(BigDecimal.valueOf(100)).setScale(2, BigDecimal.ROUND_HALF_UP).toString());
-            createTime.setText(new Date(order.getCreatedTime()).toString());
+
+            lineItemCount.setText("line item count = " + Integer.toString(lineItemSize));
+            total.setText("total = " + BigDecimal.valueOf(order.getTotal()).divide(BigDecimal.valueOf(100)).setScale(2, BigDecimal.ROUND_HALF_UP).toString());
+            createTime.setText("create time = " + new Date(order.getCreatedTime()).toString());
         }
     }
 }
