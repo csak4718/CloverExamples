@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.RemoteException;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,6 +13,11 @@ import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
 import com.clover.sdk.v1.ServiceException;
+import com.clover.sdk.v3.inventory.Item;
+import com.clover.sdk.v3.inventory.Modifier;
+import com.clover.sdk.v3.inventory.ModifierGroup;
+import com.clover.sdk.v3.inventory.PriceType;
+import com.clover.sdk.v3.order.Discount;
 import com.clover.sdk.v3.order.LineItem;
 import com.clover.sdk.v3.order.Order;
 import com.clover.sdk.v3.order.OrderConnector;
@@ -30,6 +36,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class CreateOrderActivity extends AppCompatActivity {
+    private static final String TAG = CreateOrderActivity.class.getSimpleName();
     private Account account;
     private OrderConnector orderConnector;
 
@@ -107,6 +114,7 @@ public class CreateOrderActivity extends AppCompatActivity {
         protected final Order doInBackground(Void... params) {
             String orderId = null;
             Cursor cursor = null;
+            Order mOrder = null;
             try {
                 // Query the last order
                 cursor = CreateOrderActivity.this.getContentResolver().query(OrderContract.Summaries.contentUriWithAccount(account), new String[]{OrderContract.Summaries.ID}, null, null, OrderContract.Summaries.LAST_MODIFIED + " DESC LIMIT 1");
@@ -115,8 +123,64 @@ public class CreateOrderActivity extends AppCompatActivity {
                 }
 
                 if (orderId == null) {
-                    return orderConnector.createOrder(new Order());
+                    mOrder = orderConnector.createOrder(new Order());
+                    return mOrder;
                 } else {
+                    mOrder = orderConnector.getOrder(orderId);
+
+                    List<Item> merchantItems = inventoryConnector.getItems();
+
+                    Item mItem2 = merchantItems.get(2); // coffee red medium
+                    Item mItem3 = merchantItems.get(3); // coffee red small
+
+                    LineItem mLineItem2;
+                    LineItem mLineItem3;
+                    if (mItem2.getPriceType() == PriceType.FIXED) {
+                        mLineItem2 = orderConnector.addFixedPriceLineItem(mOrder.getId(), mItem2.getId(), null, null);
+                    } else if (mItem2.getPriceType() == PriceType.PER_UNIT) {
+                        mLineItem2 = orderConnector.addPerUnitLineItem(mOrder.getId(), mItem2.getId(), 1, null, null);
+                    } else { // The item must be of a VARIABLE PriceType
+                        mLineItem2 = orderConnector.addVariablePriceLineItem(mOrder.getId(), mItem2.getId(), 5, null, null);
+                    }
+                    if (mItem3.getPriceType() == PriceType.FIXED) {
+                        mLineItem3 = orderConnector.addFixedPriceLineItem(mOrder.getId(), mItem3.getId(), null, null);
+                    } else if (mItem3.getPriceType() == PriceType.PER_UNIT) {
+                        mLineItem3 = orderConnector.addPerUnitLineItem(mOrder.getId(), mItem3.getId(), 1, null, null);
+                    } else { // The item must be of a VARIABLE PriceType
+                        mLineItem3 = orderConnector.addVariablePriceLineItem(mOrder.getId(), mItem3.getId(), 5, null, null);
+                    }
+
+
+                    //Percentage discount
+                    final Discount discount1 = new Discount();
+                    discount1.setPercentage(10l);
+                    discount1.setName("Example 10% Discount");
+
+                    //Static discount
+                    final Discount discount2 = new Discount();
+                    discount2.setAmount(-100l);
+                    discount2.setName("Example 1 base unit of currency Discount");
+
+                    //Apply first discount to whole order
+                    orderConnector.addDiscount(mOrder.getId(), discount1);
+
+                    //Apply second discount only to the first line item
+                    orderConnector.addLineItemDiscount(mOrder.getId(), mLineItem2.getId(), discount2);
+
+
+
+                    List<ModifierGroup> modifierGroups = inventoryConnector.getModifierGroupsForItem(mItem3.getId());
+
+                    //Check if any modifier is available to the item
+                    if (modifierGroups.size() > 0){
+                        List<Modifier> modifiers = modifierGroups.get(0).getModifiers();
+                        if (modifiers.size() > 0){
+                            //If so, apply the first modifier to the line item
+                            Log.d(TAG, "APPLY modifier");
+                            orderConnector.addLineItemModification(mOrder.getId(), mLineItem3.getId(), modifiers.get(0));
+                        }
+                    }
+
                     return orderConnector.getOrder(orderId);
                 }
             } catch (RemoteException e) {
