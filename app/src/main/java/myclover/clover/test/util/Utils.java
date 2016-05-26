@@ -3,9 +3,11 @@ package myclover.clover.test.util;
 import android.app.Activity;
 import android.content.Intent;
 
+import myclover.clover.test.activity.ActivityIntentActivity;
 import myclover.clover.test.activity.CreateOrderActivity;
 import myclover.clover.test.activity.GetTokenActivity;
 import myclover.clover.test.activity.InventoryActivity;
+import myclover.clover.test.activity.SendNotifActivity;
 import myclover.clover.test.activity.WebServiceActivity;
 
 /**
@@ -29,6 +31,16 @@ public class Utils {
 
     public static void gotoGetTokenActivity(Activity activity) {
         Intent it = new Intent(activity, GetTokenActivity.class);
+        activity.startActivity(it);
+    }
+
+    public static void gotoSendNotifActivity(Activity activity) {
+        Intent it = new Intent(activity, SendNotifActivity.class);
+        activity.startActivity(it);
+    }
+
+    public static void gotoActivityIntentActivity(Activity activity) {
+        Intent it = new Intent(activity, ActivityIntentActivity.class);
         activity.startActivity(it);
     }
 }

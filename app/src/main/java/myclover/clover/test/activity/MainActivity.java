@@ -15,6 +15,8 @@ import com.clover.sdk.v1.ClientException;
 import com.clover.sdk.v1.ServiceException;
 import com.clover.sdk.v3.inventory.InventoryConnector;
 import com.clover.sdk.v3.inventory.Item;
+
+import myclover.clover.test.R;
 import myclover.clover.test.util.Utils;
 
 import java.util.List;
@@ -38,6 +40,12 @@ public class MainActivity extends AppCompatActivity {
     }
     @OnClick(myclover.clover.test.R.id.btn_to_get_token) void toGetToken() {
         Utils.gotoGetTokenActivity(MainActivity.this);
+    }
+    @OnClick(R.id.btn_to_send_notif) void toSendNotif() {
+        Utils.gotoSendNotifActivity(MainActivity.this);
+    }
+    @OnClick(R.id.btn_to_activity_intent) void toActivityIntentActivity() {
+        Utils.gotoActivityIntentActivity(MainActivity.this);
     }
 
     @Override

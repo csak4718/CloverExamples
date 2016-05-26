@@ -26,7 +26,7 @@ public class ReceiveNotifActivity extends Activity {
     @Override
     protected void onNewIntent(Intent intent) {
         resultText.setVisibility(View.VISIBLE);
-        resultText.setText(intent.getStringExtra(EXTRA_PAYLOAD));
-//        resultText.setText(getString(R.string.result, intent.getStringExtra(EXTRA_PAYLOAD)));
+
+        resultText.setText(getString(R.string.result) + intent.getStringExtra(EXTRA_PAYLOAD));
     }
 }

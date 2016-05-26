@@ -4,4 +4,5 @@
     <string name="no_account">No account</string>
     <string name="token">Token=</string>
     <string name="auth_error">Auth Error</string>
+    <string name="title_activity_modify_order">My modify order</string>
 </resources>
