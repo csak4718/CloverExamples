@@ -1,4 +1,4 @@
-package com.clover.test;
+package myclover.clover.test;
 
 import org.junit.Test;
 

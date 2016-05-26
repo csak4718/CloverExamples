@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Test</string>
+    <string name="result">result</string>
+    <string name="no_account">No account</string>
+    <string name="token">Token=</string>
+    <string name="auth_error">Auth Error</string>
 </resources>

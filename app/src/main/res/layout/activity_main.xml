@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.clover.test.activity.MainActivity"
+    tools:context="myclover.clover.test.activity.MainActivity"
     android:orientation="vertical">
     <TextView
         android:id="@+id/txv"
@@ -23,6 +23,16 @@
     <Button
         android:id="@+id/btn_to_create_order"
         android:text="Create Order Activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/btn_to_web_service"
+        android:text="Web Service Activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/btn_to_get_token"
+        android:text="Get Token Activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

@@ -1,4 +1,4 @@
-package com.clover.test.activity;
+package myclover.clover.test.activity;
 
 import android.accounts.Account;
 import android.app.AlertDialog;
@@ -40,8 +40,6 @@ import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.List;
 
-import com.clover.test.R;
-
 
 public class InventoryActivity extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -65,7 +63,7 @@ public class InventoryActivity extends ListActivity implements LoaderManager.Loa
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inventory);
+        setContentView(myclover.clover.test.R.layout.activity_inventory);
         // Get a Clover Account
         mCloverAccount = CloverAccount.getAccount(context);
 
@@ -89,9 +87,21 @@ public class InventoryActivity extends ListActivity implements LoaderManager.Loa
     @Override
     protected void onPause() {
         Log.v(TAG, "Pausing...");
-        mMerchantConnector.disconnect();
-        inventoryConnector.disconnect();
+//        mMerchantConnector.disconnect();
+//        inventoryConnector.disconnect();
+        disconnect();
         super.onPause();
+    }
+
+    private void disconnect() {
+        if (mMerchantConnector != null) {
+            mMerchantConnector.disconnect();
+            mMerchantConnector = null;
+        }
+        if (inventoryConnector != null) {
+            inventoryConnector.disconnect();
+            inventoryConnector = null;
+        }
     }
 
     @Override
@@ -116,8 +126,9 @@ public class InventoryActivity extends ListActivity implements LoaderManager.Loa
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mMerchantConnector.disconnect();
-        inventoryConnector.disconnect();
+//        mMerchantConnector.disconnect();
+//        inventoryConnector.disconnect();
+        disconnect();
     }
 
     // Get the merchant's currency using MerchantConnector to get a Merchant.
@@ -230,15 +241,7 @@ public class InventoryActivity extends ListActivity implements LoaderManager.Loa
          */
 
         Cursor myCursor = (Cursor) l.getItemAtPosition(position);
-        UUID = myCursor.getString(9);
-
-        Log.d("UUID", UUID);
-//        String idd = myCursor.getString(3);
-//        if (idd == null) {
-//            Log.d("NULL", "NULL");
-//        }
-        Log.d("name", myCursor.getString(6));
-        Log.d("price", myCursor.getString(1));
+        UUID = myCursor.getString(15);
 
         // Pulling the previously formatted price from the ListView.
         TextView text = (TextView) v.findViewById(android.R.id.text2);
@@ -252,7 +255,7 @@ public class InventoryActivity extends ListActivity implements LoaderManager.Loa
         // This builds the alert dialog box that is displayed when a user clicks on an item.
         // The remaining info is added at the completion of the AsyncTask completes
         builder = new AlertDialog.Builder(context);
-        builder.setTitle(myCursor.getString(6) + " Details");
+        builder.setTitle(myCursor.getString(13) + " Details");
     }
 
     // AsyncTask to fetch inventory item information from the Clover Inventory Service

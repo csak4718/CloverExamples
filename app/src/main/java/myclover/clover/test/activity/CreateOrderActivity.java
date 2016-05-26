@@ -1,4 +1,4 @@
-package com.clover.test.activity;
+package myclover.clover.test.activity;
 
 import android.accounts.Account;
 import android.database.Cursor;
@@ -30,8 +30,6 @@ import java.util.List;
 import android.support.v7.app.AppCompatActivity;
 import com.clover.sdk.v3.inventory.InventoryConnector;
 
-import com.clover.test.R;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -42,16 +40,16 @@ public class CreateOrderActivity extends AppCompatActivity {
 
     private InventoryConnector inventoryConnector;
 
-    @Bind(R.id.order_id) TextView orderId;
-    @Bind(R.id.line_item_count) TextView lineItemCount;
-    @Bind(R.id.line_items) TextView txvLineItems;
-    @Bind(R.id.total) TextView total;
-    @Bind(R.id.create_time) TextView createTime;
+    @Bind(myclover.clover.test.R.id.order_id) TextView orderId;
+    @Bind(myclover.clover.test.R.id.line_item_count) TextView lineItemCount;
+    @Bind(myclover.clover.test.R.id.line_items) TextView txvLineItems;
+    @Bind(myclover.clover.test.R.id.total) TextView total;
+    @Bind(myclover.clover.test.R.id.create_time) TextView createTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_order);
+        setContentView(myclover.clover.test.R.layout.activity_create_order);
         ButterKnife.bind(this);
     }
 

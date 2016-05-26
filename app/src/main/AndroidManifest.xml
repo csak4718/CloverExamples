@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.clover.test">
+    package="myclover.clover.test">
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -10,15 +13,28 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name="myclover.clover.test.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.InventoryActivity" />
-        <activity android:name=".activity.CreateOrderActivity"></activity>
+        <activity android:name="myclover.clover.test.activity.InventoryActivity" />
+        <activity android:name="myclover.clover.test.activity.CreateOrderActivity" />
+        <activity android:name="myclover.clover.test.activity.WebServiceActivity" />
+
+        <receiver
+            android:name="myclover.clover.test.receiver.NotificationReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.clover.sdk.app.intent.action.APP_NOTIFICATION" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name="myclover.clover.test.activity.ReceiveNotifActivity" />
+        <activity android:name="myclover.clover.test.activity.GetTokenActivity"></activity>
     </application>
 
 </manifest>
