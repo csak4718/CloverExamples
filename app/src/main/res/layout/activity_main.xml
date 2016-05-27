@@ -49,5 +49,25 @@
             android:text="Activity Intent Activity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btn_to_my_order_update_listener"
+            android:text="My Order Update Listener Activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btn_to_tender_init"
+            android:text="Tender Init Activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btn_merchant_facing_tender"
+            android:text="Merchant Facing Tender Activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btn_customer_facing_tender"
+            android:text="Customer Facing Tender Activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </ScrollView>

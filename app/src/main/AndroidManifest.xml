@@ -49,8 +49,31 @@
             android:name=".activity.ModifyOrderActivity"
             android:label="@string/title_activity_modify_order">
             <intent-filter>
-                <action android:name="clover.intent.action.MODIFY_ORDER"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="clover.intent.action.MODIFY_ORDER" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.MyOrderUpdateListenerActivity" />
+        <activity android:name=".activity.TenderInitActivity" />
+        <activity android:name=".activity.TenderActivity" />
+        <activity
+            android:name=".activity.MerchantFacingTenderActivity"
+            android:exported="true"
+            android:label="@string/title_activity_tender">
+            <intent-filter>
+                <action android:name="clover.intent.action.MERCHANT_TENDER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.CustomerFacingTenderActivity"
+            android:exported="true"
+            android:label="@string/title_activity_tender"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen">
+            <intent-filter>
+                <action android:name="clover.intent.action.CUSTOMER_TENDER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
     </application>

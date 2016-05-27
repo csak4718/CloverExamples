@@ -47,6 +47,19 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.btn_to_activity_intent) void toActivityIntentActivity() {
         Utils.gotoActivityIntentActivity(MainActivity.this);
     }
+    @OnClick(R.id.btn_to_my_order_update_listener) void toMyOrderUpdateListenerActivity() {
+        Utils.gotoMyOrderUpdateListenerActivity(MainActivity.this);
+    }
+    @OnClick(R.id.btn_to_tender_init) void toTenderInitActivity() {
+        Utils.gotoTenderInitActivity(MainActivity.this);
+    }
+    @OnClick(R.id.btn_merchant_facing_tender) void toMerchantFacingTenderActivity() {
+        Utils.gotoMerchantFacingTenderActivity(MainActivity.this);
+    }
+    @OnClick(R.id.btn_customer_facing_tender) void toCustomerFacingTenderActivity() {
+        Utils.gotoCustomerFacingTenderActivity(MainActivity.this);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
