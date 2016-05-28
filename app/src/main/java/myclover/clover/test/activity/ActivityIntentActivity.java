@@ -20,7 +20,7 @@ public class ActivityIntentActivity extends AppCompatActivity {
 //        intent.putExtra(Intents.EXTRA_ORDER_ID, "23P9X00NGHFWT");
 //        startActivity(intent);
 
-        
+
 //        2: doesn't work
         Intent intent = new Intent(Intents.ACTION_START_REGISTER);
 //        String customerJson = "{'id': '5QM8KCB2Y0E5G', 'emailAddresses': [{'id': '5QM8KCB2Y0E5G','emailAddress': 'csak4718@gmail.com'}]}";
