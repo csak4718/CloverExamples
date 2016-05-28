@@ -37,7 +37,7 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.clover.sdk.app.intent.action.APP_NOTIFICATION" />
+                <action android:name="com.clover.intent.action.ORDER_CREATED" />
             </intent-filter>
         </receiver>
 
