@@ -126,8 +126,6 @@ public class InventoryActivity extends ListActivity implements LoaderManager.Loa
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        mMerchantConnector.disconnect();
-//        inventoryConnector.disconnect();
         disconnect();
     }
 
